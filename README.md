@@ -7,5 +7,5 @@ A lightweight website for watching Twitch streams without the bloat of the offic
 - less CPU usage
 - smaller memory footprint (example below: 388MB -> 25MB)
 
-[[todo|alt=ProcessManagerComparison]]
+[[https://github.com/thavixt/twitch-lite/blob/master/processmanager.png|alt=ProcessManagerComparison]]
 
