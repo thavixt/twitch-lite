@@ -1,33 +1,73 @@
+.grid {
+  display: grid;
+}
+
 .App {
+  min-height: 100vh;
+  min-width: 100vh;
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
+.TwitchLite {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  grid-template-columns: 1fr 270px;
+  grid-template-rows: 1fr;
 }
 
-.App-link {
-  color: #61dafb;
+.TwitchLite > div {
+  height: 100%;
+  min-height: 100%;
+  width: 100%;
+
+}
+.TwitchLite iframe {
+  width: 100%;
+  height: 100vh;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.chatPanel {
+  position: relative;
+}
+
+.chatPanel > .StreamSelector {
+  position: absolute;
+  width: 100%;
+  background-color: #000;
+  color: #AAA;
+  /* opacity: 0; */
+}
+.chatPanel > .StreamSelector:hover {
+  opacity: 1;
+}
+.chatPanel > .StreamSelector input[type='text'] {
+  background-color: #000;
+  color: #AAA;
+  border: 1px solid #555;
+  padding: 2px 3px;
+}
+
+
+@media (orientation: portrait) {
+  html, body {
+      overflow: auto;
   }
-  to {
-    transform: rotate(360deg);
+  body {
+    min-height: 100vh;
+  }
+  .TwitchLite {
+    grid-template-rows: 220px 1fr;
+    grid-template-columns: 1fr;
+  }
+  .TwitchPlayer > iframe {
+    min-height: initial;
+    max-height: 100%;
+    height: 220px;
+  }
+  .chatPanel > .TwitchChat > iframe {
+    height: 400px;
+  }
+  .App, .TwitchLite, .chatPanel {
+    min-width: auto;
+    min-height: auto;
   }
 }
