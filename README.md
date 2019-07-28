@@ -1,5 +1,4 @@
 ## Twitch Lite
----
 
 A lightweight website for watching Twitch streams without the bloat of the official website.
 
