@@ -1,6 +1,7 @@
 import React from 'react';
 
 class TwitchChat extends React.Component {
+
     render() {
         return (
             <div className='TwitchChat'>
@@ -10,7 +11,7 @@ class TwitchChat extends React.Component {
                     frameBorder='0'
                 />
             </div>
-        )
+        );
     }
 
     getIFrameSource = (channel) => `https://www.twitch.tv/embed/${channel}/chat?darkpopout`;

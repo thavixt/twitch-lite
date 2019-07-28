@@ -29,23 +29,98 @@
   position: relative;
 }
 
-.chatPanel > .StreamSelector {
+.StreamSelector {
   position: absolute;
   width: 100%;
-  background-color: #000;
+  background-color: rgb(15, 14 ,17);
   color: #AAA;
-  /* opacity: 0; */
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(100, 65, 164, .5);
 }
-.chatPanel > .StreamSelector:hover {
-  opacity: 1;
+.StreamSelector > .favourites {
+  max-height: 16em;
+  overflow: hidden auto;
+  text-align: left;
+  margin-top: 5px;
+  padding: 5px;
+  border-top: 1px solid rgba(100, 65, 164, .5);
 }
-.chatPanel > .StreamSelector input[type='text'] {
-  background-color: #000;
-  color: #AAA;
-  border: 1px solid #555;
-  padding: 2px 3px;
+.StreamSelector > .favourites > small {
+  padding: 0px 5px;
+}
+.StreamSelector > .favourites > ul > li {
+  padding: 5px 0;
+}
+.StreamSelector > .favourites > ul > li > .stream {
+  padding: 0px 5px 2px 5px;
+  cursor: pointer;
+  color: whitesmoke;
+}
+.StreamSelector > .favourites > ul > li > .stream:hover {
+  background-color: rgb(100, 65, 164);
+}
+.StreamSelector > .favourites > ul > li > button {
+  display: none;
+  float: right;
+  font-size: 12px;
+  margin-top: 5px;
+}
+.StreamSelector > .favourites > ul > li:hover > button {
+  display: inline-block;
+}
+.StreamSelector button {
+  background-color: rgb(100, 65, 164);
+  color: whitesmoke;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  padding: 1px 3px;
+  margin-left: 2px;
+  cursor: pointer;
 }
 
+.StreamSelector > button.open {
+  transform: rotate(180deg);
+}
+
+.StreamSelector > .streamInputContainer {
+  background-color: #000;
+  color: #AAA;
+  padding: 0 5px;
+  border: 1px solid rgb(57, 57, 57);
+
+  margin-left: 5px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.streamInputContainer > input[type='text'] {
+  background-color: transparent;
+  color: #AAA;
+  border: none;
+  padding: 2px 3px;
+  width: 150px;
+}
+.streamInputContainer > button {
+  padding: 0 2px;
+}
+
+.ViewerCount > .circle {
+  display: none;
+  padding: 0 3px 0 10px;
+}
+.ViewerCount > .circle.live {
+  display: inline-block;
+}
+.ViewerCount > .circle.live > svg > circle {
+  fill:firebrick;
+}
+.ViewerCount > .count {
+  color: rgb(154, 154, 154);
+  font-size: 14px;
+}
 
 @media (orientation: portrait) {
   html, body {

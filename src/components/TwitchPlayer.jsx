@@ -1,6 +1,7 @@
 import React from 'react';
 
 class TwitchPlayer extends React.Component {
+
     render() {
         return (
             <div className='TwitchPlayer'>
@@ -11,7 +12,7 @@ class TwitchPlayer extends React.Component {
                     allowFullScreen
                 />
             </div>
-        )
+        );
     }
 
     getIFrameSource = (channel) => `https://player.twitch.tv/?volume=0.3&channel=${channel}`;

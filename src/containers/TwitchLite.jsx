@@ -4,33 +4,21 @@ import StreamSelector from '../components/StreamSelector';
 import TwitchChat from '../components/TwitchChat';
 import TwitchPlayer from '../components/TwitchPlayer';
 
+const DEFAULT_STREAM = 'monstercat'
+
 class TwitchLite extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            streamName: this.getQuery() || 'monstercat'
-        }
+            streamName: this.getQuery() || DEFAULT_STREAM,
+        };
 
         window.addEventListener('streamChange', (e) => {
             this.setQuery(e.detail.streamName);
-            this.changeStream(e.detail.streamName);
-        })
+            this.setState({ streamName: e.detail.streamName });
+        });
     }
-
-    getQuery = () => {
-        const queryValue = (new URLSearchParams(window.location.search)).get('stream');
-        if (!queryValue) {
-            return window.localStorage.getItem('stream') || null;
-        }
-        return queryValue;
-    }
-
-    setQuery = (stream) => {
-        window.localStorage.setItem('stream', stream);
-        const params = new URLSearchParams(window.location.search);
-        params.set('stream', stream);
-        window.history.replaceState({}, '', `${window.location.pathname}?${params}`);
-    };
 
     render() {
         return (
@@ -41,12 +29,23 @@ class TwitchLite extends React.Component {
                     <TwitchChat streamName={this.state.streamName} />
                 </div>
             </div>
-        )
+        );
     }
 
-    changeStream = (streamName) => {
-        this.setState({ streamName });
+    getQuery = () => {
+        const queryValue = (new URLSearchParams(window.location.search)).get('stream');
+        if (!queryValue) {
+            return window.localStorage.getItem('lastWatched') || null;
+        }
+        return queryValue;
     }
+
+    setQuery = (stream) => {
+        window.localStorage.setItem('lastWatched', stream);
+        const params = new URLSearchParams(window.location.search);
+        params.set('stream', stream);
+        window.history.replaceState({}, '', `${window.location.pathname}?${params}`);
+    };
 }
 
 export default TwitchLite;
