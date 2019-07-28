@@ -5,6 +5,7 @@ class TwitchChat extends React.Component {
         return (
             <div className='TwitchChat'>
                 <iframe
+                    title='Twitch Chat'
                     src={this.getIFrameSource(this.props.streamName)}
                     frameBorder='0'
                 />

@@ -5,6 +5,7 @@ class TwitchPlayer extends React.Component {
         return (
             <div className='TwitchPlayer'>
                 <iframe
+                    title='Twitch Player'
                     src={this.getIFrameSource(this.props.streamName)}
                     frameBorder='0'
                     allowFullScreen
