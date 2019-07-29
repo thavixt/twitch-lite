@@ -18,7 +18,7 @@ A lightweight website for watching Twitch streams without the bloat of the offic
 
 ### Todo
 
-- [ ] PWA
+- [ ] PWA -> [`create-react-app` docs](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 - [x] save & remove favourites
 - [x] request  cache
 
