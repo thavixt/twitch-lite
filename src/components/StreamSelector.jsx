@@ -43,14 +43,15 @@ class StreamSelector extends React.Component {
                         defaultValue={this.props.streamName}
                         onBlur={this.onStreamNameChange}
                         onFocus={e => e.target.select()}
-                        onKeyUp={e => e.keyCode && e.keyCode === 13 && this.onStreamNameChange(e)}
+                        onKeyDown={this.handleEnter}
+                        onKeyUp={this.handleEnter}
                     />
                     <button type='submit' title='Add to Favourites'>+</button>
                 </span>
                 <button
                     type='button'
                     className={this.state.favouritesOpen ? 'open' : ''}
-                    title={(this.state.favouritesOpen ? 'Open ' : 'Close') + 'Favourites list'}
+                    title={(this.state.favouritesOpen ? 'Open' : 'Close') + ' Favourites list'}
                     onClick={this.toggleFavourites}>
                     v
                 </button>
@@ -58,12 +59,20 @@ class StreamSelector extends React.Component {
                     <div className='favourites'>
                         <small>Favourites list</small>
                         <ul>
-                            {favourites || '<< empty >>'}
+                            {favourites.length ? favourites : '- no favourites saved -'}
                         </ul>
                     </div>
                 }
             </form>
         );
+    }
+
+    handleEnter = (e) => {
+        if (e.keyCode && e.keyCode === 13) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.onStreamNameChange(e);
+        }
     }
 
     addToSavedList = (e) => {
@@ -81,8 +90,9 @@ class StreamSelector extends React.Component {
     }
 
     getSavedList = () => {
-        const list = window.localStorage.getItem('savedList') || '[]';
-        return new Set([...JSON.parse(list)]);
+        const json = window.localStorage.getItem('savedList') || '[]';
+        const list = JSON.parse(json).sort();
+        return new Set([...list]);
     }
 
     saveSavedList = (list) => {
