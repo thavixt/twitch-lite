@@ -1,3 +1,12 @@
+:root {
+  --purple: rgb(125, 91, 190);
+  --purple-faded: rgba(125, 91, 190, .5);
+  --gray: rgb(57, 57, 57);
+  --dark-gray: rgb(27, 27, 27);
+  --black: rgb(15, 14 ,17);
+  --border-radius: 3px;
+}
+
 .grid {
   display: grid;
 }
@@ -25,17 +34,20 @@
   height: 100vh;
 }
 
+
 .chatPanel {
   position: relative;
+  display: grid;
+
 }
 
 .StreamSelector {
   position: absolute;
   width: 100%;
-  background-color: rgb(15, 14 ,17);
+  background-color: var(--black);
   color: #AAA;
   padding: 5px 0;
-  border-bottom: 1px solid rgba(100, 65, 164, .5);
+  border-bottom: 1px solid var(--purple-faded);
 }
 .StreamSelector > .favourites {
   max-height: 16em;
@@ -43,51 +55,61 @@
   text-align: left;
   margin-top: 5px;
   padding: 5px;
-  border-top: 1px solid rgba(100, 65, 164, .5);
+  border-top: 1px solid var(--purple-faded);
 }
 .StreamSelector > .favourites > small {
-  padding: 0px 5px;
+  padding: 0 5px;
 }
 .StreamSelector > .favourites > ul > li {
-  padding: 5px 0;
+  padding: 0 0 2px 0;
+}
+.StreamSelector > .favourites > ul > li:hover {
+  background-color: var(--dark-gray);
 }
 .StreamSelector > .favourites > ul > li > .stream {
-  padding: 0px 5px 2px 5px;
+  padding: 0 5px 2px 5px;
   cursor: pointer;
   color: whitesmoke;
 }
 .StreamSelector > .favourites > ul > li > .stream:hover {
-  background-color: rgb(100, 65, 164);
+  background-color: var(--purple);
 }
 .StreamSelector > .favourites > ul > li > button {
   display: none;
   float: right;
   font-size: 12px;
-  margin-top: 5px;
+  margin: 3px 0;
 }
 .StreamSelector > .favourites > ul > li:hover > button {
   display: inline-block;
 }
+
 .StreamSelector button {
-  background-color: rgb(100, 65, 164);
+  background-color: var(--purple);
   color: whitesmoke;
   border: none;
   outline: none;
   box-shadow: none;
-  padding: 1px 3px;
+  padding: 1px 5px;
   margin-left: 2px;
   cursor: pointer;
 }
-
 .StreamSelector > button.open {
   transform: rotate(180deg);
+  text-align: center;
 }
+button,
+.StreamSelector > .favourites > ul > li > .stream {
+  border-radius: var(--border-radius);
+}
+
 
 .StreamSelector > .streamInputContainer {
   background-color: #000;
   color: #AAA;
-  padding: 0 5px;
-  border: 1px solid rgb(57, 57, 57);
+  padding: 0 2px;
+  margin-right: 5px;
+  border: 1px solid var(--gray);
 
   margin-left: 5px;
 
@@ -95,6 +117,7 @@
   align-items: center;
   justify-content: center;
 }
+
 
 .streamInputContainer > input[type='text'] {
   background-color: transparent;
@@ -105,7 +128,9 @@
 }
 .streamInputContainer > button {
   padding: 0 2px;
+  font-size: 12px;
 }
+
 
 .ViewerCount > .circle {
   display: none;
@@ -121,6 +146,7 @@
   color: rgb(154, 154, 154);
   font-size: 14px;
 }
+
 
 @media (orientation: portrait) {
   html, body {
