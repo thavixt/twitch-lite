@@ -1,13 +1,15 @@
 const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
-const CLIENT_ID = '***'; // twitch api client id -> https://dev.twitch.tv/console/apps/
+// twitch api client id -> https://dev.twitch.tv/console/apps/
+const CLIENT_ID = '< REPLACE THIS >';
 
 const CACHE = new Map(); // [key: {data, timestamp}]
+const CACHE_EXPIRY_MS = 5 * 60 * 1000;
 
 export const getChannelData = async (channelName) => {
 
     if (CACHE.has(channelName)) {
         const item = CACHE.get(channelName);
-        if (item.timestamp > Date.now() - 5 * 60 * 1000) {
+        if (item.timestamp > Date.now() - CACHE_EXPIRY_MS) {
             return item.data;
         }
     }

@@ -12,6 +12,7 @@ class TwitchLite extends React.Component {
         super(props);
         this.state = {
             streamName: this.getQuery() || DEFAULT_STREAM,
+            chatHidden: false,
         };
 
         window.addEventListener('streamChange', (e) => {
@@ -22,12 +23,17 @@ class TwitchLite extends React.Component {
 
     render() {
         return (
-            <div className='TwitchLite grid'>
-                <TwitchPlayer streamName={this.state.streamName} />
-                <div className='chatPanel'>
+            <div className={'TwitchLite grid' + (this.state.chatHidden ? ' hide-chat' : '')}>
+                <div className="playerPanel">
+                    <TwitchPlayer streamName={this.state.streamName} />
+                    <div className="hideChatToggle" onClick={this.toggleChatVisibility}>
+                        <span>{this.state.chatHidden ? 'Show' : 'Hide'}</span>
+                    </div>
+                </div>
+                {!this.state.chatHidden && <div className='chatPanel'>
                     <StreamSelector streamName={this.state.streamName} />
                     <TwitchChat streamName={this.state.streamName} />
-                </div>
+                </div>}
             </div>
         );
     }
@@ -46,6 +52,10 @@ class TwitchLite extends React.Component {
         params.set('stream', stream);
         window.history.replaceState({}, '', `${window.location.pathname}?${params}`);
     };
+
+    toggleChatVisibility = () => {
+        this.setState({ chatHidden: !this.state.chatHidden });
+    }
 }
 
 export default TwitchLite;

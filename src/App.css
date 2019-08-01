@@ -22,7 +22,6 @@
   grid-template-columns: 1fr 270px;
   grid-template-rows: 1fr;
 }
-
 .TwitchLite > div {
   height: 100%;
   min-height: 100%;
@@ -33,12 +32,42 @@
   width: 100%;
   height: 100vh;
 }
+.TwitchLite.hide-chat {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+.TwitchLite.hide-chat .chatPanel{
+  display: none;
+}
 
+
+.playerPanel {
+  position: relative;
+}
+.playerPanel:hover > .hideChatToggle {
+  display: block;
+}
+.hideChatToggle {
+  display: none;
+  cursor: pointer;
+  position: absolute;
+  top: 45%;
+  right: 0;
+  background-color: var(--black);
+  border-radius: var(--border-radius);
+  color: gray;
+  padding: 3px 5px 5px 8px;
+  border: 1px solid var(--black);
+}
+.hideChatToggle:hover {
+  color: whitesmoke;
+  border: 1px solid var(--purple);
+  border-right-color: var(--black);
+}
 
 .chatPanel {
   position: relative;
   display: grid;
-
 }
 
 .StreamSelector {
@@ -170,5 +199,8 @@ button,
   .App, .TwitchLite, .chatPanel {
     min-width: auto;
     min-height: auto;
+  }
+  .hideChatToggle {
+    display: none;
   }
 }

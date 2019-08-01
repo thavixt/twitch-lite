@@ -8,12 +8,17 @@ class StreamSelector extends React.Component {
         super(props);
         this.state = {
             favouritesOpen: false,
+            savedList: [],
         };
         this.ref = null;
     }
 
+    componentDidMount() {
+        this.getSavedList();
+    }
+
     render() {
-        const favourites = [...this.getSavedList()].map(stream =>
+        const favourites = [...this.state.savedList].map(stream =>
             <li key={stream}>
                 <span
                     className='stream'
@@ -67,14 +72,6 @@ class StreamSelector extends React.Component {
         );
     }
 
-    handleEnter = (e) => {
-        if (e.keyCode && e.keyCode === 13) {
-            e.preventDefault();
-            e.stopPropagation();
-            this.onStreamNameChange(e);
-        }
-    }
-
     addToSavedList = (e) => {
         e.preventDefault();
         const stream = e.target.stream.value;
@@ -83,25 +80,26 @@ class StreamSelector extends React.Component {
         this.saveSavedList(list);
     }
 
-    removeFromSavedList = (stream) => {
-        const list = this.getSavedList();
-        list.delete(stream);
-        this.saveSavedList(list);
+    changeStream = (stream) => {
+        if (this.ref) {
+            this.ref.value = stream;
+        }
+        const event = new CustomEvent('streamChange', { detail: { streamName: stream } });
+        window.dispatchEvent(event);
     }
 
     getSavedList = () => {
         const json = window.localStorage.getItem('savedList') || '[]';
         const list = JSON.parse(json).sort();
-        return new Set([...list]);
+        this.setState({ savedList: new Set([...list]) });
     }
 
-    saveSavedList = (list) => {
-        window.localStorage.setItem('savedList', JSON.stringify([...list]));
-        this.forceUpdate();
-    }
-
-    toggleFavourites = () => {
-        this.setState({ favouritesOpen: !this.state.favouritesOpen });
+    handleEnter = (e) => {
+        if (e.keyCode && e.keyCode === 13) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.onStreamNameChange(e);
+        }
     }
 
     onStreamNameChange = (e) => {
@@ -111,12 +109,19 @@ class StreamSelector extends React.Component {
         }
     }
 
-    changeStream = (stream) => {
-        if (this.ref) {
-            this.ref.value = stream;
-        }
-        const event = new CustomEvent('streamChange', { detail: { streamName: stream } });
-        window.dispatchEvent(event);
+    removeFromSavedList = (stream) => {
+        const list = this.getSavedList();
+        list.delete(stream);
+        this.saveSavedList(list);
+    }
+
+    saveSavedList = (list) => {
+        window.localStorage.setItem('savedList', JSON.stringify([...list]));
+        this.forceUpdate();
+    }
+
+    toggleFavourites = () => {
+        this.setState({ favouritesOpen: !this.state.favouritesOpen });
     }
 }
 
