@@ -75,9 +75,9 @@ class StreamSelector extends React.Component {
     addToSavedList = (e) => {
         e.preventDefault();
         const stream = e.target.stream.value;
-        const list = this.getSavedList();
-        list.add(stream);
-        this.saveSavedList(list);
+        const { savedList } = this.state;
+        savedList.add(stream);
+        this.saveSavedList(savedList);
     }
 
     changeStream = (stream) => {
@@ -116,6 +116,7 @@ class StreamSelector extends React.Component {
     }
 
     saveSavedList = (list) => {
+        this.setState({ savedList: new Set([...list]) });
         window.localStorage.setItem('savedList', JSON.stringify([...list]));
         this.forceUpdate();
     }
