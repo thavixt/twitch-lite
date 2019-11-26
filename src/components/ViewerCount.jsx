@@ -2,8 +2,7 @@ import React from 'react';
 
 import { getChannelData } from '../api/requests';
 
-class ViewerCount extends React.Component {
-
+export default class ViewerCount extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,10 +11,14 @@ class ViewerCount extends React.Component {
     }
 
     async componentDidMount() {
-        const channelData = await getChannelData(this.props.streamId);
-        channelData && this.setState({
-            channelData,
-        });
+        try {
+            const channelData = await getChannelData(this.props.streamId);
+            channelData && this.setState({
+                channelData,
+            });
+        } catch (ex) {
+            console.error(ex);
+        }
     }
 
     render() {
@@ -34,5 +37,3 @@ class ViewerCount extends React.Component {
         );
     }
 }
-
-export default ViewerCount;

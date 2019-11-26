@@ -2,8 +2,7 @@ import React from 'react';
 
 import ViewerCount from './ViewerCount';
 
-class StreamSelector extends React.Component {
-
+export default class StreamSelector extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -125,5 +124,3 @@ class StreamSelector extends React.Component {
         this.setState({ favouritesOpen: !this.state.favouritesOpen });
     }
 }
-
-export default StreamSelector;

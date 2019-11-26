@@ -1,6 +1,6 @@
 :root {
   --purple: rgb(125, 91, 190);
-  --purple-faded: rgba(125, 91, 190, .5);
+  --purple-faded: rgba(125, 91, 190, .7);
   --gray: rgb(57, 57, 57);
   --dark-gray: rgb(27, 27, 27);
   --black: rgb(15, 14 ,17);
@@ -41,10 +41,10 @@
 }
 
 
-.playerPanel {
+.hideChatToggleContainer {
   position: relative;
 }
-.playerPanel:hover > .hideChatToggle {
+.hideChatToggleContainer:hover > .hideChatToggle {
   display: block;
 }
 .hideChatToggle {
@@ -67,6 +67,28 @@
 
 .chatPanel {
   position: relative;
+  display: grid;
+}
+
+.Splitter {
+  position: absolute;
+}
+.Splitter > .drag {
+  position: relative;
+  transform: scale(5);
+  height: 100%;
+  width: 100%;
+}
+.Splitter > .drag:hover {
+  background-color: var(--purple-faded);
+}
+.Splitter > .drag.horizontal {
+  cursor: ew-resize;
+}
+.Splitter > .drag.vertical {
+  cursor: ns-resize;
+}
+.Splitter.grid {
   display: grid;
 }
 
@@ -183,7 +205,7 @@ button,
   }
   body {
     min-height: 100vh;
-  }
+  } 
   .TwitchLite {
     grid-template-rows: 220px 1fr;
     grid-template-columns: 1fr;
@@ -193,6 +215,7 @@ button,
     max-height: 100%;
     height: 220px;
   }
+  
   .chatPanel > .TwitchChat > iframe {
     height: 400px;
   }

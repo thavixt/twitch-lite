@@ -1,20 +1,12 @@
 import React from 'react';
 
-class TwitchChat extends React.Component {
+export default function TwitchChat(props) {
+    const { streamName } = props;
+    const IFrameSource = `https://www.twitch.tv/embed/${streamName}/chat?darkpopout`;
 
-    render() {
-        return (
-            <div className='TwitchChat'>
-                <iframe
-                    title='Twitch Chat'
-                    src={this.getIFrameSource(this.props.streamName)}
-                    frameBorder='0'
-                />
-            </div>
-        );
-    }
-
-    getIFrameSource = (channel) => `https://www.twitch.tv/embed/${channel}/chat?darkpopout`;
+    return (
+        <div className='TwitchChat'>
+            <iframe title='Twitch Chat' src={IFrameSource} frameBorder='0' />
+        </div>
+    );
 }
-
-export default TwitchChat;

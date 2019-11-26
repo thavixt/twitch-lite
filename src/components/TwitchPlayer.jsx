@@ -1,21 +1,12 @@
 import React from 'react';
 
-class TwitchPlayer extends React.Component {
+export default function TwitchPlayer(props) {
+    const { streamName } = props;
+    const IFrameSource = `https://player.twitch.tv/?volume=0.3&channel=${streamName}`;
 
-    render() {
-        return (
-            <div className='TwitchPlayer'>
-                <iframe
-                    title='Twitch Player'
-                    src={this.getIFrameSource(this.props.streamName)}
-                    frameBorder='0'
-                    allowFullScreen
-                />
-            </div>
-        );
-    }
-
-    getIFrameSource = (channel) => `https://player.twitch.tv/?volume=0.3&channel=${channel}`;
+    return (
+        <div className='TwitchPlayer'>
+            <iframe title='Twitch Player' src={IFrameSource} frameBorder='0' allowFullScreen />
+        </div>
+    );
 }
-
-export default TwitchPlayer;
