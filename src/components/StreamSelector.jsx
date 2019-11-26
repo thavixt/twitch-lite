@@ -87,10 +87,14 @@ export default class StreamSelector extends React.Component {
         window.dispatchEvent(event);
     }
 
-    getSavedList = () => {
+    getSavedList = (setState = true) => {
         const json = window.localStorage.getItem('savedList') || '[]';
-        const list = JSON.parse(json).sort();
-        this.setState({ savedList: new Set([...list]) });
+        const list = new Set([...JSON.parse(json).sort()]);
+        if (setState) {
+            this.setState({ savedList: list });
+        } else {
+            return list;
+        }
     }
 
     handleEnter = (e) => {
@@ -109,7 +113,7 @@ export default class StreamSelector extends React.Component {
     }
 
     removeFromSavedList = (stream) => {
-        const list = this.getSavedList();
+        const list = this.getSavedList(false);
         list.delete(stream);
         this.saveSavedList(list);
     }
