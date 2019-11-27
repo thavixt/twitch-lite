@@ -140,8 +140,6 @@ export default class StreamSelector extends React.Component {
     }
 
     hideFavourites = (e) => {
-        console.log(e.target);
-        console.log(e.currentTarget);
         this.setState({ favouritesOpen: false });
     }
 }
