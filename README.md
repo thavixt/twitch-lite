@@ -13,7 +13,7 @@ A lightweight website for watching Twitch streams without the bloat of the offic
 - works with [BetterTTV](https://betterttv.com/) and [FrankerFaceZ](https://www.frankerfacez.com/)
 - link to specific channels with `https://thavixt.github.io/twitch-lite/?stream=<channel_name>`
 - bookmark as `https://thavixt.github.io/twitch-lite/` without any query parameters to remember your last watched stream
-- save your favourite streams in a compact list to switch between them in 2 clicks, without leaving the page
+- save your favourite streams in a compact list to switch between them in 1 click, without leaving the page
   - the list shows the viewer counts of online channels for convinience
 
 ### Todo
@@ -21,6 +21,13 @@ A lightweight website for watching Twitch streams without the bloat of the offic
 - [ ] PWA -> [`create-react-app` docs](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 - [x] save & remove favourites
 - [x] request  cache
+- [] mobile layout improvements
+    - [ ] fullscreen api?
+- [x] splitter
+    - [ ] drag improvements
+- [] favourites bar scroll bar styling
+- [] import favourites from 'followed channels' list of a user?
+
 
 ### Development
 
@@ -29,5 +36,5 @@ This is a simple React app made with `create-react-app`. If you want to fork the
 - change `homepage` in `package.json`
 - replace the `CLIENT_ID` constant in `src/api/request.js` with your own client ID from https://dev.twitch.tv/console/apps/
 - `npm i`
-- `npm run start`
+- `npm run start` to develop
 - `npm run deploy` to build and publish it through `gh-pages`
