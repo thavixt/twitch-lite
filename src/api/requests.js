@@ -1,6 +1,4 @@
-const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
 const CLIENT_ID = 'yotu3p1ebkzuqov5hy49v1tvtdcvem';
-const CLIENT_SECRET = '7s6r4eqvwjvvuxytqa95icesazawdm';
 
 const USER_CACHE = new Map(); // [key: {data}]
 const STREAM_CACHE = new Map(); // [key: {data, timestamp}]
