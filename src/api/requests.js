@@ -1,22 +1,24 @@
 const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
-// twitch api client id -> https://dev.twitch.tv/console/apps/
-const CLIENT_ID = '< REPLACE THIS >';
+const CLIENT_ID = 'yotu3p1ebkzuqov5hy49v1tvtdcvem';
+const CLIENT_SECRET = '7s6r4eqvwjvvuxytqa95icesazawdm';
 
-const CACHE = new Map(); // [key: {data, timestamp}]
-const CACHE_EXPIRY_MS = 5 * 60 * 1000;
+const USER_CACHE = new Map(); // [key: {data}]
+const STREAM_CACHE = new Map(); // [key: {data, timestamp}]
+const CACHE_EXPIRY_MS = 1 * 60 * 1000;
 
-export const getChannelData = async (channelName) => {
+export async function getStreamInfo(channelName) {
+    const channel = await getChannelData(channelName);
+    const stream = await getStreamData(channel.id, channel.login);
+    return stream;
+};
 
-    if (CACHE.has(channelName)) {
-        const item = CACHE.get(channelName);
-        if (item.timestamp > Date.now() - CACHE_EXPIRY_MS) {
-            return item.data;
-        }
+export async function getChannelData(loginName) {
+    if (USER_CACHE.has(loginName)) {
+        return USER_CACHE.get(loginName).data;
     }
 
     return new Promise(async (resolve, reject) => {
-        const channelId = await getChannelIdByDisplayName(channelName);
-        fetch(`https://api.twitch.tv/helix/streams?user_id=${channelId}`, {
+        fetch(`https://api.twitch.tv/helix/users?login=${loginName}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -25,22 +27,29 @@ export const getChannelData = async (channelName) => {
         })
             .then(response => response.json())
             .then(json => {
-                CACHE.set(channelName, { data: json.data[0], timestamp: Date.now() })
-                return json;
+                if (!json.data.length) {
+                    reject(`Request error: no user '${loginName}' found.`);
+                } else {
+                    USER_CACHE.set(loginName, { data: json.data[0], timestamp: Date.now() })
+                    resolve(json.data[0]);
+                }
             })
-            .then(json => resolve(json.data[0]))
-            .catch((e) => reject(`getChannelData rejected (${channelName})` + e));
-    });
-};
+            .catch((e) =>
+                reject(`Request error: error while requesting user '${loginName}`)
+            );
+    })
+}
 
-const getChannelIdByDisplayName = async (displayName) =>
-    (await searchChannelsByDisplayName(displayName)).channels[0]._id;
+async function getStreamData(id, loginName) {
+    if (STREAM_CACHE.has(loginName)) {
+        const cached = STREAM_CACHE.get(loginName);
+        if (cached.timestamp > Date.now() - CACHE_EXPIRY_MS) {
+            return cached.data;
+        }
+    }
 
-
-const searchChannelsByDisplayName = async (channel) => {
-    return new Promise((resolve, reject) => {
-        const query = encodeURI(channel);
-        fetch(PROXY_URL + `https://api.twitch.tv/kraken/search/channels?query=${query}&limit=1`, {
+    return new Promise(async (resolve, reject) => {
+        fetch(`https://api.twitch.tv/helix/streams?first=1&user_id=${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -48,7 +57,16 @@ const searchChannelsByDisplayName = async (channel) => {
             }
         })
             .then(response => response.json())
-            .then(json => resolve(json))
-            .catch((e) => reject(`searchChannelsByDisplayName rejected (${channel})` + e));
-    });
-};
+            .then(json => {
+                if (!json.data.length) {
+                    resolve(null);
+                } else {
+                    STREAM_CACHE.set(loginName, { data: json.data[0], timestamp: Date.now() })
+                    resolve(json.data[0]);
+                }
+            })
+            .catch((e) =>
+                reject(`Request error: error while requesting stream for user '${loginName}`)
+            );
+    })
+}

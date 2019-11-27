@@ -1,6 +1,7 @@
 import React from 'react';
-
 import ViewerCount from './ViewerCount';
+
+import { getChannelData } from '../api/requests';
 
 export default class StreamSelector extends React.Component {
     constructor(props) {
@@ -25,7 +26,7 @@ export default class StreamSelector extends React.Component {
                 >
                     {stream}
                 </span>
-                <ViewerCount streamId={stream}></ViewerCount>
+                <ViewerCount channelId={stream}></ViewerCount>
                 <button
                     title='Remove from Favourites list'
                     onClick={() => this.removeFromSavedList(stream)}
@@ -36,7 +37,14 @@ export default class StreamSelector extends React.Component {
         );
 
         return (
-            <form className='StreamSelector' onSubmit={this.addToSavedList}>
+            <form
+                className='StreamSelector'
+                onBlur={this.hideFavourites}
+                onFocus={this.showFavourites}
+                onMouseEnter={this.showFavourites}
+                onMouseLeave={this.hideFavourites}
+                onSubmit={this.addToSavedList}
+            >
                 <label htmlFor='stream'>Stream:</label>
                 <span className='streamInputContainer'>
                     <input
@@ -60,7 +68,9 @@ export default class StreamSelector extends React.Component {
                     v
                 </button>
                 {this.state.favouritesOpen &&
-                    <div className='favourites'>
+                    <div
+                        className='favourites'
+                    >
                         <small>Favourites list</small>
                         <ul>
                             {favourites.length ? favourites : '- no favourites saved -'}
@@ -71,11 +81,12 @@ export default class StreamSelector extends React.Component {
         );
     }
 
-    addToSavedList = (e) => {
+    addToSavedList = async (e) => {
         e.preventDefault();
-        const stream = e.target.stream.value;
+        const channelName = e.target.stream.value;
+        const { display_name } = await getChannelData(channelName);
         const { savedList } = this.state;
-        savedList.add(stream);
+        savedList.add(display_name);
         this.saveSavedList(savedList);
     }
 
@@ -124,7 +135,13 @@ export default class StreamSelector extends React.Component {
         this.forceUpdate();
     }
 
-    toggleFavourites = () => {
-        this.setState({ favouritesOpen: !this.state.favouritesOpen });
+    showFavourites = () => {
+        this.setState({ favouritesOpen: true });
+    }
+
+    hideFavourites = (e) => {
+        console.log(e.target);
+        console.log(e.currentTarget);
+        this.setState({ favouritesOpen: false });
     }
 }

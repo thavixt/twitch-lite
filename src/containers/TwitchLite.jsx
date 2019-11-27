@@ -1,5 +1,4 @@
 import React from 'react';
-
 import StreamSelector from '../components/StreamSelector';
 import Splitter from '../components/Splitter';
 import TwitchChat from '../components/TwitchChat';
