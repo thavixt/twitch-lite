@@ -1,5 +1,3 @@
-const CLIENT_ID = 'yotu3p1ebkzuqov5hy49v1tvtdcvem';
-
 const USER_CACHE = new Map(); // [key: {data}]
 const STREAM_CACHE = new Map(); // [key: {data, timestamp}]
 const CACHE_EXPIRY_MS = 1 * 60 * 1000;
@@ -20,7 +18,7 @@ export async function getChannelData(loginName) {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Client-ID': CLIENT_ID,
+                'Client-ID': process.env.REACT_APP_REDDIT_API_CLIENT_ID,
             }
         })
             .then(response => response.json())
@@ -51,7 +49,7 @@ async function getStreamData(id, loginName) {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Client-ID': CLIENT_ID,
+                'Client-ID': process.env.REACT_APP_REDDIT_API_CLIENT_ID,
             }
         })
             .then(response => response.json())
