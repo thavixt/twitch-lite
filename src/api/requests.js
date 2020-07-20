@@ -4,8 +4,11 @@ const CACHE_EXPIRY_MS = 1 * 60 * 1000;
 
 export async function getStreamInfo(channelName) {
     const channel = await getChannelData(channelName);
-    const stream = await getStreamData(channel.id, channel.login);
-    return stream;
+    if (channel && channel.id) {
+        const stream = await getStreamData(channel.id, channel.login);
+        return stream;
+    }
+    return { title: channelName, type: '', viewer_count: '' };
 };
 
 export async function getChannelData(loginName) {
@@ -30,9 +33,10 @@ export async function getChannelData(loginName) {
                     resolve(json.data[0]);
                 }
             })
-            .catch((e) =>
-                reject(`Request error: error while requesting user '${loginName}`)
-            );
+            .catch((e) => {
+                console.error(`Request error:\nError while requesting user data for '${loginName}'.\n(Will be fixed soon)`);
+                resolve({ display_name: loginName });
+            });
     })
 }
 
@@ -61,8 +65,9 @@ async function getStreamData(id, loginName) {
                     resolve(json.data[0]);
                 }
             })
-            .catch((e) =>
-                reject(`Request error: error while requesting stream for user '${loginName}`)
-            );
+            .catch((e) => {
+                console.error(`Request error:\nError while requesting stream info for '${loginName}'. (Will be fixed soon)`);
+                resolve({ id, loginName });
+            });
     })
 }

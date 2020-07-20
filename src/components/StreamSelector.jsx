@@ -8,7 +8,7 @@ export default class StreamSelector extends React.Component {
         super(props);
         this.state = {
             favouritesOpen: false,
-            savedList: [],
+            savedList: new Set(),
         };
         this.ref = null;
     }
