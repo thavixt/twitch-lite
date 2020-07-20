@@ -1,3 +1,5 @@
+![gh-pages](https://github.com/thavixt/twitch-lite/workflows/gh-pages/badge.svg)
+
 ## Twitch Lite
 
 A lightweight website for watching Twitch streams without the bloat of the official website.
