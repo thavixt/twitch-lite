@@ -1,0 +1,33 @@
+# This workflow is triggered on pushes to the master branch.
+name: gh-pages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: push-gh-pages
+    runs-on: ubuntu-16.04
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.16.1
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+        env:
+          REACT_APP_REDDIT_API_CLIENT_ID: ${{ secrets.REACT_APP_REDDIT_API_CLIENT_ID }}
+          REACT_APP_PUBLIC_URL: ${{ secrets.REACT_APP_PUBLIC_URL }}
+      - name: Publish gh-pages
+        uses: crazy-max/ghaction-github-pages@v1
+        with:
+          target_branch: gh-pages
+          build_dir: build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

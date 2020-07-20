@@ -18,6 +18,8 @@ A lightweight website for watching Twitch streams without the bloat of the offic
 
 ### Todo
 
+- [ ] (broken, todo asap) use Twitch Oath to get stream info and viewer counts
+
 - [ ] PWA -> [`create-react-app` docs](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 - [x] save & remove favourites
 - [x] request cache
@@ -34,7 +36,8 @@ A lightweight website for watching Twitch streams without the bloat of the offic
 This is a simple React app made with `create-react-app`. If you want to fork the project:
 
 - change `homepage` in `package.json`
-- replace the `CLIENT_ID` constant in `src/api/request.js` with your own client ID from https://dev.twitch.tv/console/apps/
+- create a `.env` file based on the `.env.example` file (https://dev.twitch.tv/console/apps/)
 - `npm i`
 - `npm run start` to develop
 - `npm run deploy` to build and publish it through `gh-pages`
+  - *or* just `git push` and the GitHub action set up will do the deployment through `gh-pages` automatically (change it for your own needs if you'd like a different deployment strategy).
