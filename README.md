@@ -20,13 +20,13 @@ A lightweight website for watching Twitch streams without the bloat of the offic
 
 - [ ] PWA -> [`create-react-app` docs](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 - [x] save & remove favourites
-- [x] request  cache
-- [] mobile layout improvements
+- [x] request cache
+- [ ] mobile layout improvements
     - [ ] fullscreen api?
 - [x] splitter
     - [ ] drag improvements
-- [] favourites bar scroll bar styling
-- [] import favourites from 'followed channels' list of a user?
+- [ ] favourites bar scroll bar styling
+- [ ] import favourites from 'followed channels' list of a user?
 
 
 ### Development
