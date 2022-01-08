@@ -85,6 +85,11 @@ function twitchApiRequest<T extends keyof TwitchEndpoint>(
     fallback?: TwitchApiData[T],
 ): Promise<Maybe<TwitchApiData[T]>> {
     return new Promise<TwitchApiData[T]>(async (resolve, reject) => {
+        const accessToken = getAccessToken();
+        if (!accessToken) {
+            reject(`[API] Access token not found.`);
+            return;
+        }
         try {
             const uri = `${endpoint}${getQueryString(query)}`;
             const cached = getCached<T>(uri);
@@ -127,6 +132,10 @@ function getQueryString(data: Record<string, string | number>): string {
     return search ? `?${search}` : '';
 }
 
-function getAccessToken() {
-    return (JSON.parse(localStorage.getItem('twitchAccessToken') ?? '{}') as AccessToken).access_token;
+function getAccessToken(): Maybe<AccessToken['access_token']> {
+    const stored = localStorage.getItem('twitchAccessToken');
+    if (!stored) {
+        return null;
+    }
+    return (JSON.parse(stored) as AccessToken).access_token;
 }

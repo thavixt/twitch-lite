@@ -13,11 +13,7 @@ export function setQuery(stream: string) {
     window.history.replaceState({}, '', `${window.location.pathname}?${params}`);
 }
 
-export function cleanSearchParams(refresh = true) {
+export function cleanSearchParams() {
     const cleaned = window.location.href.split('?')[0];
     window.history.replaceState(null, '', cleaned);
-    if (refresh) {
-        console.info('[Reddit-lite] Authenticated with Twitch, reload page...');
-        window.location.reload();
-    }
 }
