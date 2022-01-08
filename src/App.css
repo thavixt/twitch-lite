@@ -62,9 +62,9 @@
 }
 
 .splitterControls>.control {
-    display: block;
+    display: none;
+    /* TODO: refactor around here */
     z-index: 999;
-
     cursor: pointer;
     position: absolute;
     top: 45%;
