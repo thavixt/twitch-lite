@@ -1,234 +1,319 @@
 :root {
-  --purple: rgb(125, 91, 190);
-  --purple-faded: rgba(125, 91, 190, .7);
-  --gray: rgb(57, 57, 57);
-  --dark-gray: rgb(27, 27, 27);
-  --black: rgb(15, 14 ,17);
-  --border-radius: 3px;
+    --purple: rgb(125, 91, 190);
+    --purple-faded: rgba(125, 91, 190, .7);
+    --gray: rgb(57, 57, 57);
+    --dark-gray: rgb(27, 27, 27);
+    --black: rgb(15, 14, 17);
+    --border-radius: 3px;
+    --stream-desc: rgb(154, 154, 154);
 }
 
 .grid {
-  display: grid;
+    display: grid;
 }
 
 .App {
-  min-height: 100vh;
-  min-width: 100vh;
-  text-align: center;
+    height: 100vh;
+    width: 100vw;
+    text-align: center;
 }
 
 .TwitchLite {
-  min-height: 100vh;
-  grid-template-columns: 1fr 270px;
-  grid-template-rows: 1fr;
+    height: 100%;
+    grid-template-columns: 1fr 270px;
+    grid-template-rows: 1fr;
 }
-.TwitchLite > div {
-  height: 100%;
-  min-height: 100%;
-  width: 100%;
 
+.TwitchLite>div {
+    height: 100%;
+    max-height: 100%;
+    width: 100%;
 }
+
 .TwitchLite iframe {
-  width: 100%;
-  height: 100vh;
+    width: 100%;
+    height: 100vh;
 }
+
 .TwitchLite.hide-chat {
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
 }
-.TwitchLite.hide-chat .chatPanel{
-  display: none;
+
+.TwitchLite.hide-chat .chatPanel {
+    display: none;
+}
+
+/* GRID ORDER - reverse functionality */
+.TwitchLite.reverse .grid>div:nth-child(1) {
+    order: 3;
+}
+
+.TwitchLite.reverse .grid>div:nth-child(2) {
+    order: 2;
+}
+
+.TwitchLite.reverse .grid>div:nth-child(3) {
+    order: 1;
+}
+
+.splitterControls {
+    position: relative;
+}
+
+.splitterControls>.control {
+    display: block;
+    z-index: 999;
+
+    cursor: pointer;
+    position: absolute;
+    top: 45%;
+    right: 0;
+    background-color: var(--black);
+    border-radius: var(--border-radius);
+    color: gray;
+    padding: 3px 5px 5px 8px;
+    border: 1px solid var(--black);
 }
 
 
-.hideChatToggleContainer {
-  position: relative;
+.TwitchLite.reverse>.splitterControls:hover>.control {
+    /* FIX: very bad, please refactor :) it's on the wrong side ... */
+    left: 100px;
 }
-.hideChatToggleContainer:hover > .hideChatToggle {
-  display: block;
+
+.splitterControls>.control:hover {
+    color: whitesmoke;
+    border: 1px solid var(--purple);
+    border-right-color: var(--black);
 }
-.hideChatToggle {
-  display: none;
-  cursor: pointer;
-  position: absolute;
-  top: 45%;
-  right: 0;
-  background-color: var(--black);
-  border-radius: var(--border-radius);
-  color: gray;
-  padding: 3px 5px 5px 8px;
-  border: 1px solid var(--black);
+
+
+.splitterControls:hover>.control {
+    display: block;
 }
-.hideChatToggle:hover {
-  color: whitesmoke;
-  border: 1px solid var(--purple);
-  border-right-color: var(--black);
+
+.splitterControls>.hideChatToggle {
+    top: 45%;
+}
+
+.splitterControls>.reverseLayoutToggle {
+    top: 55%;
 }
 
 .chatPanel {
-  position: relative;
-  display: grid;
+    position: relative;
+    display: grid;
 }
 
 .Splitter {
-  position: absolute;
+    position: absolute;
 }
-.Splitter > .drag {
-  position: relative;
-  transform: scale(5);
-  height: 100%;
-  width: 100%;
+
+.Splitter>.drag {
+    position: relative;
+    transform: scale(5);
+    height: 100%;
+    width: 100%;
 }
-.Splitter > .drag:hover {
-  background-color: var(--purple-faded);
+
+.Splitter>.drag:hover {
+    background-color: var(--purple-faded);
 }
-.Splitter > .drag.horizontal {
-  cursor: ew-resize;
+
+.Splitter>.drag.horizontal {
+    cursor: ew-resize;
 }
-.Splitter > .drag.vertical {
-  cursor: ns-resize;
+
+.Splitter>.drag.vertical {
+    cursor: ns-resize;
 }
+
 .Splitter.grid {
-  display: grid;
+    display: grid;
 }
 
 .StreamSelector {
-  position: absolute;
-  width: 100%;
-  background-color: var(--black);
-  color: #AAA;
-  padding: 5px 0;
-  border-bottom: 1px solid var(--purple-faded);
+    position: absolute;
+    width: 100%;
+    background-color: var(--black);
+    color: #AAA;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--purple-faded);
 }
-.StreamSelector > .favourites {
-  max-height: 16em;
-  overflow: hidden auto;
-  text-align: left;
-  margin-top: 5px;
-  padding: 5px;
-  border-top: 1px solid var(--purple-faded);
+
+.StreamSelector>.favourites {
+    max-height: 16em;
+    overflow: hidden auto;
+    text-align: left;
+    margin-top: 5px;
+    padding: 5px;
+    border-top: 1px solid var(--purple-faded);
 }
-.StreamSelector > .favourites > small {
-  padding: 0 5px;
+
+.StreamSelector>.favourites>small {
+    padding: 0 5px;
 }
-.StreamSelector > .favourites > ul > li {
-  padding: 0 0 2px 0;
+
+.StreamSelector>.favourites>ul>li {
+    padding: 0 0 2px 0;
 }
-.StreamSelector > .favourites > ul > li:hover {
-  background-color: var(--dark-gray);
+
+.StreamSelector>.favourites>ul>li:hover {
+    background-color: var(--dark-gray);
 }
-.StreamSelector > .favourites > ul > li > .stream {
-  padding: 0 5px 2px 5px;
-  cursor: pointer;
-  color: whitesmoke;
+
+.StreamSelector>.favourites>ul>li>.stream {
+    padding: 0 5px 2px 5px;
+    cursor: pointer;
+    color: whitesmoke;
 }
-.StreamSelector > .favourites > ul > li > .stream:hover {
-  background-color: var(--purple);
+
+.StreamSelector>.favourites>ul>li>.stream:hover {
+    background-color: var(--purple);
 }
-.StreamSelector > .favourites > ul > li > button {
-  display: none;
-  float: right;
-  font-size: 12px;
-  margin: 3px 0;
+
+.StreamSelector>.favourites>ul>li>button {
+    display: none;
+    float: right;
+    font-size: 12px;
+    margin: 3px 0;
 }
-.StreamSelector > .favourites > ul > li:hover > button {
-  display: inline-block;
+
+.StreamSelector>.favourites>ul>li:hover>button {
+    display: inline-block;
 }
 
 .StreamSelector button {
-  background-color: var(--purple);
-  color: whitesmoke;
-  border: none;
-  outline: none;
-  box-shadow: none;
-  padding: 1px 5px;
-  margin-left: 2px;
-  cursor: pointer;
+    background-color: var(--purple);
+    color: whitesmoke;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    padding: 1px 5px;
+    margin-left: 2px;
+    cursor: pointer;
 }
-.StreamSelector > button.open {
-  transform: rotate(180deg);
-  text-align: center;
+
+.StreamSelector>button.open {
+    transform: rotate(180deg);
+    text-align: center;
 }
+
 button,
-.StreamSelector > .favourites > ul > li > .stream {
-  border-radius: var(--border-radius);
+.StreamSelector>.favourites>ul>li>.stream {
+    border-radius: var(--border-radius);
 }
 
-
-.StreamSelector > .streamInputContainer {
-  background-color: #000;
-  color: #AAA;
-  padding: 0 2px;
-  margin-right: 5px;
-  border: 1px solid var(--gray);
-
-  margin-left: 5px;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.StreamSelector>.streamInputContainer {
+    background-color: #000;
+    color: #AAA;
+    padding: 0 2px;
+    margin-right: 5px;
+    border: 1px solid var(--gray);
+    margin-left: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-
-.streamInputContainer > input[type='text'] {
-  background-color: transparent;
-  color: #AAA;
-  border: none;
-  padding: 2px 3px;
-  width: 150px;
-}
-.streamInputContainer > button {
-  padding: 0 2px;
-  font-size: 12px;
-}
-
-
-.ViewerCount > .circle {
-  display: none;
-  padding: 0 3px 0 10px;
-}
-.ViewerCount > .circle.live {
-  display: inline-block;
-}
-.ViewerCount > .circle.live > svg > circle {
-  fill:firebrick;
-}
-.ViewerCount > .count {
-  color: rgb(154, 154, 154);
-  font-size: 14px;
+.StreamSelector>.auth>a {
+    margin-left: 1em;
+    background-color: var(--purple);
+    color: whitesmoke;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    padding: 1px 5px;
+    margin-left: 2px;
+    cursor: pointer;
 }
 
+.StreamSelector>.auth>.loggedIn {
+    display: block;
+    padding-left: 1em;
+    color: var(--gray);
+}
+
+.streamInputContainer>input[type='text'] {
+    background-color: transparent;
+    color: #AAA;
+    border: none;
+    padding: 2px 3px;
+    width: 150px;
+}
+
+.streamInputContainer>button {
+    padding: 0 2px;
+    font-size: 12px;
+}
+
+.StreamInfo>.circle {
+    display: none;
+    padding: 0 3px 0 10px;
+}
+
+.StreamInfo>.circle.live {
+    display: inline-block;
+}
+
+.StreamInfo>.circle.live>svg>circle {
+    fill: firebrick;
+}
+
+.StreamInfo>.count {
+    color: var(--stream-desc);
+    font-size: 14px;
+}
+
+.StreamInfo>.profile {
+    border-radius: 50%;
+    height: 1em;
+    margin-right: 0.5em;
+}
+
+.StreamInfo>.game {
+    color: var(--stream-desc);
+}
 
 @media (orientation: portrait) {
-  html, body {
-      overflow: auto;
-  }
-  body {
-    min-height: 100vh;
-  } 
-  .TwitchLite {
-    grid-template-rows: 220px 1fr;
-    grid-template-columns: 1fr;
-  }
-  .TwitchPlayer > iframe {
-    min-height: initial;
-    max-height: 100%;
-    height: 220px;
-  }
-  .chatPanel > .TwitchChat > iframe {
-    /* */
-  }
-  .App, .TwitchLite, .chatPanel {
-    width: 100vw;
-    height: 100vh;
-  }
-  .hideChatToggle {
-    display: none;
-  }
-  .Splitter.grid {
-    display: block;
-  }
-  .Splitter .drag {
-    display: none;
-  }
+    html, body {
+        overflow: auto;
+    }
+
+    body {
+        min-height: 100vh;
+    }
+
+    .TwitchLite {
+        grid-template-rows: 220px 1fr;
+        grid-template-columns: 1fr;
+    }
+
+    .TwitchPlayer>iframe {
+        min-height: initial;
+        max-height: 100%;
+        height: 220px;
+    }
+
+    .chatPanel>.TwitchChat>iframe {
+        /* */
+    }
+
+    .App, .TwitchLite, .chatPanel {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .hideChatToggle {
+        display: none;
+    }
+
+    .Splitter.grid {
+        display: block;
+    }
+
+    .Splitter .drag {
+        display: none;
+    }
 }

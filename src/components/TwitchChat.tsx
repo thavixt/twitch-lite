@@ -1,7 +1,8 @@
-import React from 'react';
+interface TwitchChatProps {
+    streamName: string;
+}
 
-export default function TwitchChat(props) {
-    const { streamName } = props;
+export function TwitchChat({ streamName }: TwitchChatProps) {
     const IFrameSource = `https://www.twitch.tv/embed/${streamName}/chat?darkpopout&parent=${process.env.REACT_APP_PUBLIC_URL}`;
 
     return (

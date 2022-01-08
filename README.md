@@ -5,8 +5,7 @@
 A lightweight website for watching Twitch streams without the bloat of the official website.
 
 - less CPU usage, faster load times
-- smaller memory footprint (example below: 388MB -> 25MB)
-- ~44.9KB (gzipped) on initial page load
+- smaller memory footprint (example below: 388MB -> 25MB) (2 yr old screenshot - might need a new one)
 
 ![](https://user-images.githubusercontent.com/19637735/61996760-5f2fda80-b098-11e9-9560-f355125d383d.png)
 
@@ -21,8 +20,6 @@ A lightweight website for watching Twitch streams without the bloat of the offic
 ### Todo
 
 - [ ] (broken, todo asap) use Twitch Oath to get stream info and viewer counts
-
-- [ ] PWA -> [`create-react-app` docs](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 - [x] save & remove favourites
 - [x] request cache
 - [ ] mobile layout improvements
@@ -31,7 +28,7 @@ A lightweight website for watching Twitch streams without the bloat of the offic
     - [ ] drag improvements
 - [ ] favourites bar scroll bar styling
 - [ ] import favourites from 'followed channels' list of a user?
-
+- [ ] PWA -> [`create-react-app` docs](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
 ### Development
 
