@@ -134,11 +134,12 @@
 }
 
 .StreamSelector {
+    text-align: left;
+    padding: 5px 1em;
     position: absolute;
     width: 100%;
     background-color: var(--black);
     color: #AAA;
-    padding: 5px 0;
     border-bottom: 1px solid var(--purple-faded);
 }
 

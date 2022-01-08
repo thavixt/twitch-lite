@@ -58,7 +58,7 @@ export function StreamSelector({ streamName }: StreamSelectorProps) {
             </button>
             <LoginButton />
             {open && <div className='favourites' >
-                <small>Favourites list</small>
+                <small>Followed channels: ({favourites.length})</small>
                 <ul>
                     {favourites.length ? favourites : '- no followed streams -'}
                 </ul>
