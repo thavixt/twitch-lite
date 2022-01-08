@@ -9,23 +9,24 @@ on:
 jobs:
   build:
     name: push-gh-pages
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: 12.16.1
+          node-version: '16'
       - name: Install dependencies
         run: npm install
       - name: Build
         run: npm run build
         env:
           REACT_APP_REDDIT_API_CLIENT_ID: ${{ secrets.REACT_APP_REDDIT_API_CLIENT_ID }}
+          REACT_APP_REDDIT_API_CLIENT_SECRET: ${{ secrets.REACT_APP_REDDIT_API_CLIENT_SECRET }}
           REACT_APP_PUBLIC_URL: ${{ secrets.REACT_APP_PUBLIC_URL }}
       - name: Publish gh-pages
-        uses: crazy-max/ghaction-github-pages@v1
+        uses: crazy-max/ghaction-github-pages@v2
         with:
           target_branch: gh-pages
           build_dir: build
