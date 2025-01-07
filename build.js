@@ -23,7 +23,7 @@ function replaceInFile(filePath) {
         if (err) {
           console.error(`Error writing to file ${filePath}:`, err);
         } else {
-          console.log(`Replaced string in ${filePath}`);
+          console.log(`Replaced "${targetString}" with "${updatedData}" in file ${filePath}`);
         }
       });
     }
