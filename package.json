@@ -8,8 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy" : "yarn run build && node build.js",
-    "deploy" : "gh-pages -d dist"
+    "build-gh-pages" : "yarn run build && node build.js",
+    "deploy-gh-pages" : "gh-pages -d dist"
   },
   "dependencies": {
     "classnames": "^2.5.1",

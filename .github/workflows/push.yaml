@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Build
-        run: npm run build
+        run: npm run build-gh-pages
         env:
           VITE_REDDIT_API_CLIENT_ID: ${{ secrets.VITE_REDDIT_API_CLIENT_ID }}
           VITE_REDDIT_API_CLIENT_SECRET: ${{ secrets.VITE_REDDIT_API_CLIENT_SECRET }}
@@ -29,6 +29,6 @@ jobs:
         uses: crazy-max/ghaction-github-pages@v2
         with:
           target_branch: gh-pages
-          build_dir: build
+          build_dir: dist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
