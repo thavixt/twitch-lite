@@ -8,9 +8,5 @@ export default function App() {
         checkAccessToken();
     }, []);
 
-    return (
-        <div className='App'>
-            <TwitchLite></TwitchLite>
-        </div>
-    );
+    return <TwitchLite />;
 }

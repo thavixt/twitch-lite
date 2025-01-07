@@ -23,6 +23,7 @@ export type TwitchEndpoint = {
         user_id: string; // id of user to get follow list of
     },
 }
+
 export interface TwitchApiData extends Record<keyof TwitchEndpoint, any> {
     'users': {
         broadcaster_type: string;

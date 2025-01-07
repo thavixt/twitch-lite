@@ -70,20 +70,20 @@ export function StreamSelector({ streamName }: StreamSelectorProps) {
 export function UnauthenticatedStreamSelector({ streamName }: StreamSelectorProps) {
     const ref = useRef<HTMLInputElement>(null);
     const [favouritesOpen, setFavouritesOpen] = useState(false);
-    const [savedList, setSavedList] = useState(new Set<any>());
+    const [savedList, setSavedList] = useState(new Set<string>());
 
     const getSavedList = useCallback(() => {
         const json = window.localStorage.getItem('savedList') || '[]';
-        const list = new Set([...JSON.parse(json).sort()]);
+        const list = new Set<string>([...JSON.parse(json).sort()]);
         setSavedList(list);
         return list;
     }, []);
-    const saveSavedList = useCallback((list) => {
+    const saveSavedList = useCallback((list: Set<string>) => {
         setSavedList(new Set([...list]));
         window.localStorage.setItem('savedList', JSON.stringify([...list]));
     }, []);
 
-    const addToSavedList = useCallback(async (e) => {
+    const addToSavedList = useCallback(async (e: React.FormEvent) => {
         e.preventDefault();
         const channelName = e.target.stream.value;
         savedList.add(channelName);
@@ -127,10 +127,11 @@ export function UnauthenticatedStreamSelector({ streamName }: StreamSelectorProp
         <li key={stream}>
             <StreamInfo loginName={stream} onClick={() => changeStream(stream)}>
                 <button
+                    className='border border-transparent rounded-md hover:border-slate-600 p-1'
                     title='Remove from Favourites list'
                     onClick={() => removeFromSavedList(stream)}
                 >
-                    Remove
+                    x
                 </button>
             </StreamInfo>
         </li>
@@ -138,7 +139,7 @@ export function UnauthenticatedStreamSelector({ streamName }: StreamSelectorProp
 
     return (
         <form
-            className='StreamSelector'
+            className='flex space-x-2 items-center px-2'
             onBlur={hideFavourites}
             onFocus={showFavourites}
             onMouseEnter={showFavourites}
@@ -146,30 +147,21 @@ export function UnauthenticatedStreamSelector({ streamName }: StreamSelectorProp
             onSubmit={addToSavedList}
         >
             <label htmlFor='stream'>Stream:</label>
-            <span className='streamInputContainer'>
-                <input
-                    ref={ref}
-                    id='stream'
-                    name='stream'
-                    type='text'
-                    defaultValue={streamName}
-                    onBlur={onStreamNameChange}
-                    onFocus={e => e.target.select()}
-                    onKeyDown={handleEnter}
-                    onKeyUp={handleEnter}
-                />
-                <button type='submit' title='Add to Favourites'>+</button>
-            </span>
-            <button
-                type='button'
-                className={favouritesOpen ? 'open' : ''}
-                title={`${favouritesOpen ? 'Open' : 'Close'} Favourites list`}
-                onClick={favouritesOpen ? hideFavourites : showFavourites}>
-                v
-            </button>
+            <input
+                ref={ref}
+                id='stream'
+                name='stream'
+                type='text'
+                defaultValue={streamName}
+                onBlur={onStreamNameChange}
+                onFocus={e => e.target.select()}
+                onKeyDown={handleEnter}
+                onKeyUp={handleEnter}
+            />
+            <button type='submit' title='Add to Favourites' className='border border-transparent rounded-md hover:border-slate-600 p-1'>+</button>
             <LoginButton />
             {favouritesOpen &&
-                <div className='favourites'>
+                <div className='border border-gray-300 rounded-md p-1 top-8 absolute bg-slate-700'>
                     <small>Favourites list</small>
                     <ul>
                         {favourites.length ? favourites : '- no favourites saved -'}

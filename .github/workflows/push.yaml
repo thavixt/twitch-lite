@@ -22,9 +22,9 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          REACT_APP_REDDIT_API_CLIENT_ID: ${{ secrets.REACT_APP_REDDIT_API_CLIENT_ID }}
-          REACT_APP_REDDIT_API_CLIENT_SECRET: ${{ secrets.REACT_APP_REDDIT_API_CLIENT_SECRET }}
-          REACT_APP_PUBLIC_URL: ${{ secrets.REACT_APP_PUBLIC_URL }}
+          VITE_REDDIT_API_CLIENT_ID: ${{ secrets.VITE_REDDIT_API_CLIENT_ID }}
+          VITE_REDDIT_API_CLIENT_SECRET: ${{ secrets.VITE_REDDIT_API_CLIENT_SECRET }}
+          VITE_PUBLIC_URL: ${{ secrets.VITE_PUBLIC_URL }}
       - name: Publish gh-pages
         uses: crazy-max/ghaction-github-pages@v2
         with:

@@ -1,13 +1,19 @@
+import { useEffect } from "react";
+
 interface TwitchChatProps {
     streamName: string;
+    collapsed?: boolean;
 }
 
-export function TwitchChat({ streamName }: TwitchChatProps) {
-    const IFrameSource = `https://www.twitch.tv/embed/${streamName}/chat?darkpopout&parent=${process.env.REACT_APP_PUBLIC_URL}`;
+export function TwitchChat({ streamName, collapsed }: TwitchChatProps) {
+    const IFrameSource = `https://www.twitch.tv/embed/${streamName}/chat?darkpopout&parent=${import.meta.env.VITE_PUBLIC_URL}`;
 
+    useEffect(() => console.info(collapsed ? 'Chat collapsed' : 'Chat expanded'), [collapsed]);
+
+    if (collapsed) {
+        return null;
+    }
     return (
-        <div className='TwitchChat'>
-            <iframe title='Twitch Chat' src={IFrameSource} frameBorder='0' />
-        </div>
+        <iframe title='Twitch Chat' className="size-full" src={IFrameSource} frameBorder='0' />
     );
 }

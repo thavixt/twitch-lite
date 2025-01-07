@@ -105,7 +105,7 @@ function twitchApiRequest<T extends keyof TwitchEndpoint>(
                     headers: {
                         'Authorization': `Bearer ${getAccessToken()}`,
                         'Content-Type': 'application/json',
-                        'Client-Id': process.env.REACT_APP_REDDIT_API_CLIENT_ID as string,
+                        'Client-Id': import.meta.env.VITE_REDDIT_API_CLIENT_ID as string,
                     }
                 },
             );
