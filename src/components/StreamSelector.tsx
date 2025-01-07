@@ -85,17 +85,18 @@ export function UnauthenticatedStreamSelector({ streamName }: StreamSelectorProp
 
     const addToSavedList = useCallback(async (e: React.FormEvent) => {
         e.preventDefault();
-        const channelName = e.target.stream.value;
+        // @todo: fix type
+        const channelName = (e.target as any).stream.value as string;
         savedList.add(channelName);
         saveSavedList(savedList);
     }, [saveSavedList, savedList]);
-    const removeFromSavedList = useCallback((stream) => {
+    const removeFromSavedList = useCallback((stream: string) => {
         const list = getSavedList();
         list.delete(stream);
         saveSavedList(list);
     }, [getSavedList, saveSavedList]);
 
-    const changeStream = useCallback((stream) => {
+    const changeStream = useCallback((stream: string) => {
         if (ref?.current) {
             ref.current.value = stream;
         }
@@ -103,16 +104,17 @@ export function UnauthenticatedStreamSelector({ streamName }: StreamSelectorProp
         window.dispatchEvent(event);
     }, []);
 
-    const onStreamNameChange = useCallback((e) => {
+    const onStreamNameChange = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
         e.preventDefault();
         changeStream(e.target.value);
     }, [changeStream]);
 
-    const handleEnter = useCallback((e) => {
+    const handleEnter = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.keyCode && e.keyCode === 13) {
             e.preventDefault();
             e.stopPropagation();
-            changeStream(e.target.value);
+            // @todo: fix type
+            changeStream((e.target as any).value);
         }
     }, [changeStream]);
 

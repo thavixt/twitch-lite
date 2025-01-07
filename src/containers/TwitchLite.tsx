@@ -15,6 +15,8 @@ export default function TwitchLite() {
     const [reversed, setReversed] = useState(false);
     const [isHorizontal, setIsHorizontal] = useState(false);
 
+    // unused
+    // @ts-ignore
     const onResizeClick = useCallback(() => {
         console.log('click');
         setReversed(reversed => !reversed);
@@ -82,6 +84,8 @@ interface ReversiblePanelGroupProps {
     reversed?: boolean,
 }
 
+// unused
+// @ts-ignore
 function ReversiblePanelGroup({ children, horizontal, reversed }: PropsWithChildren<ReversiblePanelGroupProps>) {
     const childrenList = Children.toArray(children);
 

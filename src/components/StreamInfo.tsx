@@ -1,4 +1,4 @@
-import { useStreamInfo } from '../api/hooks';
+// import { useStreamInfo } from '../api/hooks';
 
 interface StreamInfoProps {
     children?: React.ReactChild;
